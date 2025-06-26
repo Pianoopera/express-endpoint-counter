@@ -1,0 +1,62 @@
+{
+  "name": "express-endpoint-counter",
+  "version": "1.0.0",
+  "description": "A lightweight Express.js middleware for counting and monitoring API endpoint usage with TypeScript support",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src/**/*.ts",
+    "prepublishOnly": "npm run test && npm run build",
+    "prepare": "npm run build",
+    "example": "tsx --watch examples/basic-usage.ts"
+  },
+  "keywords": [
+    "express",
+    "middleware",
+    "api",
+    "endpoint",
+    "counter",
+    "metrics",
+    "monitoring",
+    "statistics",
+    "typescript"
+  ],
+  "author": "Pianoopera",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pianoopera/express-endpoint-counter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Pianoopera/express-endpoint-counter/issues"
+  },
+  "homepage": "https://github.com/Pianoopera/express-endpoint-counter#readme",
+  "peerDependencies": {
+    "express": "^4.0.0 || ^5.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.24",
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
+    "eslint": "^9.29.0",
+    "express": "^4.19.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "tsx": "^4.20.3",
+    "typescript": "^5.3.3"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

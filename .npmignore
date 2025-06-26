@@ -1,0 +1,43 @@
+# Source files
+src/
+*.ts
+!*.d.ts
+
+# Test files
+__tests__/
+*.test.*
+*.spec.*
+jest.config.js
+coverage/
+
+# Config files
+.eslintrc*
+.prettierrc*
+tsconfig.json
+.editorconfig
+
+# Development files
+.git/
+.github/
+.vscode/
+.idea/
+*.log
+*.lock
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
+
+# Documentation source
+docs/
+examples/
+
+# Build artifacts
+*.tsbuildinfo
+.cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Keep the dist directory
+!dist/
