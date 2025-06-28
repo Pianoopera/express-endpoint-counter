@@ -24,6 +24,10 @@ npm install express-endpoint-counter
 yarn add express-endpoint-counter
 ```
 
+```bash
+pnpm add express-endpoint-counter
+```
+
 ## クイックスタート
 
 ```typescript
@@ -94,7 +98,7 @@ app.use(counter.middleware());
 const allStats = counter.getStats();
 
 // 特定のエンドポイントの統計を取得
-const userStats = counter.getStats('GET /users');
+const userStats = counter.getStats('/users');
 ```
 
 #### `getTopEndpoints(limit?)`
@@ -134,25 +138,11 @@ const summary = counter.getSummary();
 特定のエンドポイントまたはすべてのエンドポイントの統計をリセットします。
 
 ```typescript
-// 特定のエンドポイントをリセット
-counter.reset('GET /users');
-
 // すべてをリセット
 counter.reset();
 ```
 
-## 高度な使用方法
-
-### カスタムパス正規化
-
-```typescript
-const counter = createEndpointCounter({
-  normalizePaths: true, // 以下のように正規化されます：
-  // /users/123 → /users/:id
-  // /posts/abc-def-ghi → /posts/:id
-  // /items/550e8400-e29b-41d4-a716-446655440000 → /items/:id
-});
-```
+## その他使用方法
 
 ### モニタリングシステムとの統合
 
