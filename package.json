@@ -1,6 +1,9 @@
 {
   "name": "express-endpoint-counter",
-  "version": "1.0.0",
+  "version": "0.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "A lightweight Express.js middleware for counting and monitoring API endpoint usage with TypeScript support",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
