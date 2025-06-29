@@ -153,7 +153,7 @@ describe('EndpointCounter', () => {
       // Add third endpoint - should trigger cleanup
       counter.incrementCount('GET', '/api/data', 100);
       stats = counter.getStats();
-      expect(stats.size).toBe(3);
+      expect(stats.size).toBe(2);
     });
 
     test('should evict least recently used endpoint', (done) => {

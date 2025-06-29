@@ -53,10 +53,10 @@ export class EndpointCounter {
     if (this.stats.size >= this.options.maxEndpoints) {
       // Remove the least recently accessed endpoint
       let lruKey: string | null = null;
-      let lruTime = new Date();
+      let lruTime: Date | null = null; // nullで初期化
 
       for (const [key, stats] of this.stats.entries()) {
-        if (stats.lastAccessedAt < lruTime) {
+        if (lruTime === null || stats.lastAccessedAt < lruTime) {
           lruTime = stats.lastAccessedAt;
           lruKey = key;
         }
