@@ -46,7 +46,7 @@ jobs:
 
       - name: Update version and create tag
         run: |
-          npm version ${{ github.event.inputs.version }}
+          pnpm version ${{ github.event.inputs.version }}
           git push origin main --tags
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
