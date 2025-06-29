@@ -424,6 +424,28 @@ git commit -m "Fix memory leak in endpoint tracking (#123)"
 ```
 
 3. **リリースプロセス**
+
+このプロジェクトでは、GitHub Actionsを使用した自動化されたリリースプロセスを採用しています。
+
+**自動リリース手順：**
+
+1. **リリースタグの作成**
+   ```bash
+   # GitHub ActionsのWorkflow Dispatchを使用してタグを作成
+   # GitHubのActionsタブから「Create Release Tag」ワークフローを手動実行
+   # または以下のコマンドでも実行可能
+   gh workflow run release.yml -f version=patch  # patch | minor | major
+   ```
+
+2. **自動NPM公開**
+   - タグが作成されると、`publish.yml`ワークフローが自動実行されます
+   - テスト実行 → ビルド → NPM公開 → GitHub Release作成の順で自動実行
+   - `NPM_TOKEN`シークレットが設定されている必要があります
+
+**手動リリース手順（非推奨）：**
+
+以下は緊急時やトラブルシューティング用の手動手順です：
+
 ```bash
 # mainブランチに切り替え
 git checkout main
@@ -442,6 +464,16 @@ git push origin main --tags
 # NPMに公開
 npm publish
 ```
+
+**リリースワークフローの詳細：**
+
+- `release.yml`: 手動でバージョンタグを作成
+- `publish.yml`: タグがプッシュされた際に自動でNPM公開とGitHub Release作成
+
+**必要なシークレット設定：**
+
+GitHubリポジトリの Settings > Secrets and variables > Actions で以下を設定：
+- `NPM_TOKEN`: NPMへの公開に必要なトークン
 
 ### トラブルシューティング
 
