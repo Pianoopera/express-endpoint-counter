@@ -427,22 +427,7 @@ git commit -m "Fix memory leak in endpoint tracking (#123)"
 
 このプロジェクトでは、GitHub Actionsを使用した自動化されたリリースプロセスを採用しています。
 
-**自動リリース手順：**
-
-1. **リリースタグの作成**
-   ```bash
-   # GitHub ActionsのWorkflow Dispatchを使用してタグを作成
-   # GitHubのActionsタブから「Create Release Tag」ワークフローを手動実行
-   # または以下のコマンドでも実行可能
-   gh workflow run release.yml -f version=patch  # patch | minor | major
-   ```
-
-2. **自動NPM公開**
-   - タグが作成されると、`publish.yml`ワークフローが自動実行されます
-   - テスト実行 → ビルド → NPM公開 → GitHub Release作成の順で自動実行
-   - `NPM_TOKEN`シークレットが設定されている必要があります
-
-**手動リリース手順（非推奨）：**
+**リリース手順：**
 
 以下は緊急時やトラブルシューティング用の手動手順です：
 
@@ -450,10 +435,6 @@ git commit -m "Fix memory leak in endpoint tracking (#123)"
 # mainブランチに切り替え
 git checkout main
 git pull origin main
-
-# CHANGELOGの更新
-echo "## v1.0.1 - $(date +%Y-%m-%d)" >> CHANGELOG.md
-echo "- Fixed memory leak issue" >> CHANGELOG.md
 
 # バージョンアップとタグ付け
 npm version patch
