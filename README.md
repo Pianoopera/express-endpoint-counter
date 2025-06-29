@@ -427,13 +427,13 @@ git commit -m "Fix memory leak in endpoint tracking (#123)"
 
 このプロジェクトでは、GitHub Actionsを使用した自動化されたリリースフローを採用しています。
 
-### 1. 手動でのバージョンタグ作成
+### 1. 手動でのリリース実行
 
 リリースプロセスは、GitHubのActions画面から手動で開始します：
 
 1. **GitHubリポジトリのページに移動**
    - `Actions`タブをクリック
-   - 左サイドバーから`Create Tag`ワークフローを選択
+   - 左サイドバーから`Publish to npm`ワークフローを選択
 
 2. **ワークフローの実行**
    - `Run workflow`ボタンをクリック
@@ -443,19 +443,24 @@ git commit -m "Fix memory leak in endpoint tracking (#123)"
      - `major`: 破壊的変更（例：1.0.0 → 2.0.0）
    - `Run workflow`を実行
 
-3. **自動実行される処理**
-   - 依存関係のインストール（pnpm）
-   - `package.json`のバージョン更新
-   - Gitタグの作成とプッシュ
-   - 実行者のアカウント情報でコミット
+### 2. 自動実行されるプロセス
 
-### 2. 自動公開プロセス
+ワークフローは以下の3つのジョブを順次実行します：
 
-タグが作成されると、以下が自動的に実行されます：
+#### Job 1: create-tag
+- 依存関係のインストール（pnpm）
+- `package.json`のバージョン更新
+- Gitタグの作成とプッシュ
+- 実行者のアカウント情報でコミット
 
-- **NPMパッケージの公開**
-- **GitHub Releaseの作成**
-- **リリースノートの生成**
+#### Job 2: publish
+- テストの実行
+- プロジェクトのビルド
+- NPMパッケージの公開
+
+#### Job 3: create-release
+- GitHub Releaseの作成
+- リリースノートの自動生成
 
 ### 3. ローカルでのリリース準備
 
