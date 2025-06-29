@@ -423,38 +423,54 @@ npm test
 git commit -m "Fix memory leak in endpoint tracking (#123)"
 ```
 
-3. **リリースプロセス**
+## リリースフロー
 
-このプロジェクトでは、GitHub Actionsを使用した自動化されたリリースプロセスを採用しています。
+このプロジェクトでは、GitHub Actionsを使用した自動化されたリリースフローを採用しています。
 
-**リリース手順：**
+### 1. 手動でのバージョンタグ作成
 
-以下は緊急時やトラブルシューティング用の手動手順です：
+リリースプロセスは、GitHubのActions画面から手動で開始します：
+
+1. **GitHubリポジトリのページに移動**
+   - `Actions`タブをクリック
+   - 左サイドバーから`Create Tag`ワークフローを選択
+
+2. **ワークフローの実行**
+   - `Run workflow`ボタンをクリック
+   - バージョンタイプを選択：
+     - `patch`: バグフィックス（例：1.0.0 → 1.0.1）
+     - `minor`: 新機能追加（例：1.0.0 → 1.1.0）
+     - `major`: 破壊的変更（例：1.0.0 → 2.0.0）
+   - `Run workflow`を実行
+
+3. **自動実行される処理**
+   - 依存関係のインストール（pnpm）
+   - `package.json`のバージョン更新
+   - Gitタグの作成とプッシュ
+   - 実行者のアカウント情報でコミット
+
+### 2. 自動公開プロセス
+
+タグが作成されると、以下が自動的に実行されます：
+
+- **NPMパッケージの公開**
+- **GitHub Releaseの作成**
+- **リリースノートの生成**
+
+### 3. ローカルでのリリース準備
+
+GitHubワークフローを使用する前に、ローカルで以下を確認してください：
 
 ```bash
-# mainブランチに切り替え
-git checkout main
-git pull origin main
+# テストの実行
+npm test
 
-# バージョンアップとタグ付け
-npm version patch
+# ビルドの確認
+npm run build
 
-# GitHubにプッシュ
-git push origin main --tags
-
-# NPMに公開
-npm publish
+# リントの確認
+npm run lint
 ```
-
-**リリースワークフローの詳細：**
-
-- `release.yml`: 手動でバージョンタグを作成
-- `publish.yml`: タグがプッシュされた際に自動でNPM公開とGitHub Release作成
-
-**必要なシークレット設定：**
-
-GitHubリポジトリの Settings > Secrets and variables > Actions で以下を設定：
-- `NPM_TOKEN`: NPMへの公開に必要なトークン
 
 ### トラブルシューティング
 
@@ -488,7 +504,7 @@ GitHubリポジトリの Settings > Secrets and variables > Actions で以下を
 コントリビューションは歓迎します！以下のガイドラインに従ってください：
 
 1. Issueを作成して問題や提案を議論
-2. フォークしてfeatureブランチを作成
+2. featureブランチを作成
 3. テストを含むコードを書く
 4. すべてのテストが通ることを確認
 5. Pull Requestを作成
